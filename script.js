@@ -9,23 +9,25 @@ let count = 0;
 
 function reset() {
   count = 0;
-  renderCount();
+  renderCountAndBg();
   button.blur(); // removes focus from button, so when pressing space or enter after clicking on reset the button does not get clicked
 }
 
 function countUp() {
   count += 1;
-  renderCount();
-
-  let cssCount = count.toString();
-  if (cssCount.length > 2 && count % 100 != 0) {
-    cssCount = cssCount.slice(-2);
-  }
-  root.style.setProperty("--counter", cssCount + "%");
+  renderCountAndBg();
 }
 
-function renderCount() {
+function renderCountAndBg() {
   label.innerText = count;
+
+  let cssCount = count.toString();
+  if (cssCount.length > 2 && count % 100 !== 0) {
+    cssCount = cssCount.slice(-2); // extracts the last two characters (digits) of the string, returns string
+    root.style.setProperty("--counter", cssCount + "%");
+  } else {
+    root.style.setProperty("--counter", count + "%");
+  }
 }
 
 // Click on main -> count up
